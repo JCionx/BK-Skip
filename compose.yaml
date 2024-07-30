@@ -1,0 +1,40 @@
+name: ecstatic_renaud
+services:
+  main_app:
+    cpu_shares: 10
+    command: []
+    container_name: bk-skip
+    deploy:
+      resources:
+        limits:
+          memory: 256M
+    hostname: bk-skip
+    image: bk-skip:latest
+    labels:
+      icon: https://i.imgur.com/tPbZ8uH.png
+    ports:
+      - target: 8080
+        published: "14490"
+        protocol: tcp
+    restart: unless-stopped
+    volumes:
+      - type: bind
+        source: /DATA/AppData/bk-skip
+        target: /app
+    devices: []
+    cap_add: []
+    environment: []
+    network_mode: bridge
+    privileged: false
+x-casaos:
+  author: self
+  category: self
+  hostname: ""
+  icon: https://i.imgur.com/tPbZ8uH.png
+  index: /
+  is_uncontrolled: false
+  port_map: "14490"
+  scheme: http
+  store_app_id: ecstatic_renaud
+  title:
+    custom: BK Skip
