@@ -192,7 +192,9 @@ def main_page() -> None:
 
         # Show the validation code
         progressbar.set_visibility(False)
+        progressbar.value = 0
         generate_button.set_visibility(True)
+
         result = await (await page.wait_for_selector("#EndOfSurvey")).inner_text()
         survey_code = result.split("Código de validação: ")[1][:7]
         ui.notify("Completed")
@@ -204,6 +206,8 @@ def main_page() -> None:
     async def main():
         async with async_playwright() as playwright:
             await run(playwright)
+
+    ui.page_title("BK Skip")
 
     with ui.card().classes('fixed-center'):
         ui.label('BK Skip').style("font-size: 180%; width: 100%; text-align: center;")
@@ -219,6 +223,8 @@ def main_page() -> None:
 
 @ui.page('/login')
 def login() -> Optional[RedirectResponse]:
+    ui.page_title("BK Skip - Login")
+
     def try_login() -> None:  # local function to avoid passing username and password as arguments
         if passwords.get(username.value) == password.value:
             app.storage.user.update({'username': username.value, 'authenticated': True})
@@ -235,4 +241,4 @@ def login() -> Optional[RedirectResponse]:
         ui.button('Log in', on_click=try_login).style("width: 100%;")
     return None
 
-ui.run(storage_secret='0fcbe8045a2f126b7cb320e1dbcf6846ad7cfc6a78fbca8d6a08263cebb60462')
+ui.run(storage_secret='0fcbe8045a2f126b7cb320e1dbcf6846ad7cfc6a78fbca8d6a08263cebb60462', favicon="/opt/app/icon.png")
