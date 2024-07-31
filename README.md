@@ -10,6 +10,9 @@ git clone https://github.com/JCionx/bk-skip
 
 # Build the docker image
 docker build -t bk-skip .
+
+# Save the docker image
+docker save bk-skip > bk-skip.tar
 ```
 
 Now transfer the image to your CasaOS server and load the image there:
