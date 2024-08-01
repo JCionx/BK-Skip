@@ -10,13 +10,13 @@ from nicegui import Client, app, ui
 
 passwords = {'admin': 'admin'}
 
-# if not os.path.exists('/app/creds.json'):
-#    default_passwords = {'admin': 'admin'}
-#    with open('/app/creds.json', 'w') as f:
-#        json.dump(default_passwords, f, indent=4)
+if not os.path.exists('/app/creds.json'):
+    default_passwords = {'admin': 'admin'}
+    with open('/app/creds.json', 'w') as f:
+        json.dump(default_passwords, f, indent=4)
 
-#with open('/app/creds.json', 'r') as f:
-#    passwords = json.load(f)
+with open('/app/creds.json', 'r') as f:
+    passwords = json.load(f)
 
 unrestricted_page_routes = {'/login'}
 
