@@ -10,13 +10,13 @@ from nicegui import Client, app, ui
 
 passwords = {'admin': 'admin'}
 
-if not os.path.exists('/app/creds.json'):
-    default_passwords = {'admin': 'admin'}
-    with open('/app/creds.json', 'w') as f:
-        json.dump(default_passwords, f, indent=4)
+# if not os.path.exists('/app/creds.json'):
+#    default_passwords = {'admin': 'admin'}
+#    with open('/app/creds.json', 'w') as f:
+#        json.dump(default_passwords, f, indent=4)
 
-with open('/app/creds.json', 'r') as f:
-    passwords = json.load(f)
+#with open('/app/creds.json', 'r') as f:
+#    passwords = json.load(f)
 
 unrestricted_page_routes = {'/login'}
 
@@ -50,7 +50,7 @@ def main_page() -> None:
         chromium = playwright.chromium
         browser = await chromium.launch(headless=True)
         page = await browser.new_page()
-        await page.goto("https://rbixm.qualtrics.com/jfe/form/SV_9MHgHFvPm0OEHr0?CountryCode=DEU&Q_Language=DE&PT=1")  # Replace with the actual URL
+        await page.goto("https://rbixm.qualtrics.com/jfe/form/SV_9MHgHFvPm0OEHr0?CountryCode=PRT&Q_Language=PT&PT=1")  # Replace with the actual URL
 
         # Burger King number
         progressbar.value = 1 / steps
