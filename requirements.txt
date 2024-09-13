@@ -25,6 +25,7 @@ MarkupSafe==2.1.5
 multidict==6.0.5
 nicegui==1.4.30
 orjson==3.10.6
+pillow==10.4.0
 playwright==1.45.1
 pscript==0.7.7
 pydantic==2.8.2

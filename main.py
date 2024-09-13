@@ -7,8 +7,13 @@ import asyncio
 import json
 import os
 from nicegui import Client, app, ui
+from PIL import Image
+from PIL import ImageDraw
+from PIL import ImageFont
 
 passwords = {'admin': 'admin'}
+
+font = ImageFont.truetype("/opt/app/Helvetica.ttf", 40)
 
 if not os.path.exists('/app/creds.json'):
     default_passwords = {'admin': 'admin'}
@@ -197,8 +202,18 @@ def main_page() -> None:
         progressbar.value = 0
         generate_buttons.set_visibility(True)
 
+
         result = await (await page.wait_for_selector("#EndOfSurvey")).inner_text()
         survey_code = result.split("Código de validação: ")[1][:7]
+        
+        # Draw the text on the img_pt image
+        img = Image.open("/opt/app/img_pt.png")
+        draw = ImageDraw.Draw(img)
+        draw.text((505, 1152), text=survey_code, fill=(0, 0, 0), font=font)
+
+        # Pass the modified img_pt image to set_source
+        code_image.set_source(img)
+
         ui.notify("Completed")
         code_dialog.open()
         code_label.set_text(survey_code)
@@ -385,6 +400,7 @@ def main_page() -> None:
         with ui.dialog() as code_dialog, ui.card():
             ui.label('The code is:').style("margin: 0 80px; text-align: center;")
             code_label = ui.label('FFFFFFF').style("width: 100%; text-align: center; font-weight: bold; font-size: large;")
+            code_image = ui.image()
             ui.button('Close', on_click=code_dialog.close).style("width: 100%;")
     ui.button(on_click=lambda: (app.storage.user.clear(), ui.navigate.to('/login')), icon='logout').props('outline round')
 
